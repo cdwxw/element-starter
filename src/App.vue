@@ -4,12 +4,22 @@
     <el-container>
       <el-header>
         <el-input v-model="search" placeholder="请输入搜索内容" clearable>
-          <el-button slot="append" icon="el-icon-search"></el-button>
+          <template slot="append">{{ items.length }} 个结果</template>
         </el-input>
       </el-header>
       <el-main>
         <el-backtop target=".el-main" :visibility-height="100"></el-backtop>
         <el-empty v-if="items.length === 0" description="暂无数据"></el-empty>
+        <div v-if="items.length === 0" class="" style="width:100%;display:flex;flex-direction:column;justify-content:space-between;">
+          <div v-for="(item, index) in tableData" :key="index">
+            <table style="margin-bottom:20px;width:100%;box-shadow: 0 0 10px #000;">
+              <tr v-for="(value, key) in item" :key="key">
+                <td style="width:50%;box-shadow: 0 0 1px #000;">{{ index }}. {{ key }}</td>
+                <td style="width:50%;box-shadow: 0 0 1px #000;">{{ value }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
         <el-card class="box-card" v-if="items.length > 0" v-for="(value, key, index) in items" :key="item">
           <el-row>
             <el-tag v-if="value.type === 'single'">【单选】</el-tag>
@@ -39,6 +49,7 @@ export default {
 
   data() {
     return {
+      tableData: [],
       search: '',
       items: Store.fetch()
     }
@@ -49,6 +60,11 @@ export default {
         .then((res) => {
           Store.save(res.data)
           this.items = Store.fetch()
+        })
+    axios
+        .get('../static/2.json')
+        .then((res) => {
+          this.tableData = res.data
         })
   },
   watch: {
