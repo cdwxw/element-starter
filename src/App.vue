@@ -12,10 +12,10 @@
         <el-empty v-if="items.length === 0" description="暂无数据"></el-empty>
         <div v-if="items.length === 0" class="" style="width:100%;display:flex;flex-direction:row;flex-wrap:wrap;">
           <div v-for="(item, index) in tableData" :key="index">
-            <table :style="[index%2==0?shadowStyles:shadowStyles]">
-              <tr v-for="(value, key) in item" :key="key">
-                <td v-show="index%2==0" style="width:50%;height:10px;line-height:10px;box-shadow: 0 0 1px #000;">{{ key }}</td>
-                <td style="width:50%;box-shadow: 0 0 1px #000;">{{ value }}</td>
+            <table style="margin-bottom:50px;">
+              <tr v-for="(value, key) in item" :key="key" style="height:15px;line-height:15px;">
+                <td v-show="index%2==0" style="box-shadow: 0 0 5px #000;">{{ key }}</td>
+                <td style="box-shadow: 0 0 5px #000;">{{ value }}</td>
               </tr>
             </table>
           </div>
@@ -49,8 +49,6 @@ export default {
 
   data() {
     return {
-      shadowStyles:{'margin-bottom':'20px','width':'100%','box-shadow': '0 0 10px #000'},
-      noneShadowStyles:{'margin-bottom':'20px','width':'100%'},
       tableData: [],
       search: '',
       items: Store.fetch()
