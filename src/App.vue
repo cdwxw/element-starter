@@ -4,15 +4,15 @@
     <el-container>
       <el-header>
         <el-input v-model="search" placeholder="请输入搜索内容" clearable>
-          <template slot="append">{{ items.length }} 个结果</template>
+          <template slot="append">{{ json1.length }} 个结果</template>
         </el-input>
       </el-header>
       <el-main>
 <!--        <img src="./assets/logo.png" />-->
         <el-backtop target=".el-main" :visibility-height="100"></el-backtop>
-        <el-empty v-if="items.length === 0" description="暂无数据"></el-empty>
-        <div v-if="items.length === 0" class="" style="width:100%;display:flex;flex-direction:row;flex-wrap:wrap;">
-          <div v-for="(item, index) in tableData" :key="index">
+        <el-empty v-if="json1.length === 0" description="暂无数据"></el-empty>
+        <div v-if="json1.length === 0" class="" style="width:100%;display:flex;flex-direction:row;flex-wrap:wrap;">
+          <div v-for="(item, index) in json2" :key="index">
             <table style="margin-bottom:50px;">
               <tr v-for="(value, key) in item" :key="key" style="height:15px;line-height:15px;">
                 <td v-show="index%2==0" style="box-shadow: 0 0 5px #000;">{{ key }}</td>
@@ -21,7 +21,7 @@
             </table>
           </div>
         </div>
-        <el-card class="box-card" v-if="items.length > 0" v-for="(value, key, index) in items" :key="item">
+        <el-card class="box-card" v-if="json1.length > 0" v-for="(value, key, index) in json1" :key="item">
           <el-row>
             <el-tag v-if="value.type === 'single'">【单选】</el-tag>
             <el-tag type="success" v-else-if="value.type === 'multiple'">【多选】</el-tag>
@@ -43,40 +43,24 @@
 </template>
 
 <script>
-import Store from './store'
-
+import json1 from './assets/1.json'
+import json2 from './assets/2.json'
 // 创建一个新的 Vue 实例
 export default {
-
   data() {
     return {
-      tableData: [],
-      search: '',
-      items: Store.fetch()
+      json1: json1,
+      json2: json2,
+      search: ''
     }
-  },
-  created() {
-    // https://blog.csdn.net/Jeasu_0908/article/details/118596340
-    axios
-        .get('/1.json')
-        .then((res) => {
-          Store.save(res.data)
-          this.items = Store.fetch()
-        })
-    axios
-        .get('/2.json')
-        .then((res) => {
-          this.tableData = res.data
-        })
   },
   watch: {
     search: function (val) {
-      this.items = Store.fetch().filter((item, i) => {
+      this.json1 = json1.filter((item) => {
         return item.title.indexOf(val) !== -1
       })
     }
   }
-
 }
 </script>
 
