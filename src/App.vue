@@ -8,6 +8,7 @@
         </el-input>
       </el-header>
       <el-main>
+<!--        <img src="./assets/logo.png" />-->
         <el-backtop target=".el-main" :visibility-height="100"></el-backtop>
         <el-empty v-if="items.length === 0" description="暂无数据"></el-empty>
         <div v-if="items.length === 0" class="" style="width:100%;display:flex;flex-direction:row;flex-wrap:wrap;">
@@ -57,13 +58,13 @@ export default {
   created() {
     // https://blog.csdn.net/Jeasu_0908/article/details/118596340
     axios
-        .get('./assets/1.json')
+        .get('/1.json')
         .then((res) => {
           Store.save(res.data)
           this.items = Store.fetch()
         })
     axios
-        .get('./assets/2.json')
+        .get('/2.json')
         .then((res) => {
           this.tableData = res.data
         })

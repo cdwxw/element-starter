@@ -5,6 +5,10 @@ const url = require('url')
 const publicPath = ''
 
 module.exports = (options = {}) => ({
+  // publicPath: '/',
+  // assetsDir: 'static',
+  // assetsPublicPath: '/',
+  // assetsSubDirectory: 'static',
   entry: {
     vendor: './src/vendor',
     index: './src/main.js'
@@ -58,6 +62,7 @@ module.exports = (options = {}) => ({
   devServer: {
     host: '127.0.0.1',
     port: 8010,
+    contentBase: './static',
     proxy: {
       '/api/': {
         target: 'http://127.0.0.1:8080',
