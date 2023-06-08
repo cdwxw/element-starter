@@ -56,13 +56,13 @@ export default {
   },
   created() {
     axios
-        .get('../static/1.json')
+        .get('../public/1.json')
         .then((res) => {
           Store.save(res.data)
           this.items = Store.fetch()
         })
     axios
-        .get('../static/2.json')
+        .get('../public/2.json')
         .then((res) => {
           this.tableData = res.data
         })
