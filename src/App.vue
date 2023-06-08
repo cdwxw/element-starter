@@ -55,14 +55,15 @@ export default {
     }
   },
   created() {
+    // https://blog.csdn.net/Jeasu_0908/article/details/118596340
     axios
-        .get('/public/1.json')
+        .get('./assets/1.json')
         .then((res) => {
           Store.save(res.data)
           this.items = Store.fetch()
         })
     axios
-        .get('/public/2.json')
+        .get('./assets/2.json')
         .then((res) => {
           this.tableData = res.data
         })
